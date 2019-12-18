@@ -4,13 +4,14 @@
 #include "table.h"
 
 constexpr uint8_t ledPin { PB1 };
-constexpr uint8_t adcPin { PB2 };
+constexpr uint8_t adcPin { A1 };
 
 auto hub = OneWireHub(PB0); // LED
 auto ds18b20 = DS18B20(DS18B20::family_code, 0x00, 0x00, 0xB2, 0x18, 0xDA, 0x00);
 
 void setup() {
     pinMode(ledPin, OUTPUT);
+    digitalWrite(ledPin, LOW);
     hub.attach(ds18b20);
 }
 
