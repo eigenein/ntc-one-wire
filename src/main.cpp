@@ -1,5 +1,7 @@
-#include "Arduino.h"
-#include "DS18B20.h"
+#include <Arduino.h>
+#include <DS18B20.h>
+
+#include "table.h"
 
 constexpr uint8_t ledPin { PB1 };
 constexpr uint8_t adcPin { PB2 };
@@ -14,14 +16,17 @@ void setup() {
 
 void loop() {
     static uint32_t nextMillis = millis();
+    static uint8_t ledState = LOW;
 
     hub.poll();
 
     if (millis() > nextMillis) {
-        nextMillis += 1000;
-        const auto value = analogRead(adcPin);
-        // TODO: http://www.giangrandi.ch/electronics/ntc/ntc.shtml
-        // TODO: generate table via a script.
-        ds18b20.setTemperature(20.0f);
+        nextMillis += 5000;
+
+        const auto adcValue = analogRead(adcPin);
+        ds18b20.setTemperature(adc_to_temperature(adcValue));
+
+        ledState = ledState == HIGH ? LOW : HIGH;
+        digitalWrite(ledPin, ledState);
     }
 }
