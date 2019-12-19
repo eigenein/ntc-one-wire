@@ -3,14 +3,15 @@
 
 #include "table.h"
 
-constexpr uint8_t ledPin { PB1 };
-constexpr uint8_t adcPin { A1 };
+constexpr uint8_t ledPin = PB1;
+constexpr uint8_t adcPin = A1;
 
-auto hub = OneWireHub(PB0); // LED
-auto ds18b20 = DS18B20(DS18B20::family_code, 0x00, 0x00, 0xB2, 0x18, 0xDA, 0x00);
+auto hub = OneWireHub(PB0);
+auto ds18b20 = DS18B20(0x28, 0x92, 0x23, 0xC5, 0x1E, 0x19, 0x01); // 289223C51E190171
 
 void setup() {
     pinMode(ledPin, OUTPUT);
+    pinMode(adcPin, INPUT);
     digitalWrite(ledPin, LOW);
     hub.attach(ds18b20);
 }
@@ -19,15 +20,16 @@ void loop() {
     static uint32_t nextMillis = millis();
     static uint8_t ledState = LOW;
 
-    hub.poll();
+    digitalWrite(ledPin, hub.poll() ? HIGH : LOW);
 
     if (millis() > nextMillis) {
-        nextMillis += 5000;
+        nextMillis += 1000;
 
-        const auto adcValue = analogRead(adcPin);
-        ds18b20.setTemperature(adc_to_temperature(adcValue));
+        const int adcValue = analogRead(adcPin);
+        const float temperature = adc_to_temperature(adcValue);
+        ds18b20.setTemperature(temperature);
 
-        ledState = ledState == HIGH ? LOW : HIGH;
-        digitalWrite(ledPin, ledState);
+        // ledState = ledState == HIGH ? LOW : HIGH;
+        // digitalWrite(ledPin, ledState);
     }
 }

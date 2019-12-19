@@ -57,7 +57,7 @@ def print_header():
 def print_array(r25: float, beta: float, rf: float, min_t: float, max_t: float) -> Tuple[int, int]:
     # http://www.giangrandi.ch/electronics/ntc/ntc.shtml
     start_i = None
-    echo('const float TABLE[] = {')
+    echo('const static float TABLE[] PROGMEM = {')
     for i in range(0, 1024):
         if i == 0:
             # Zero NTC resistance.
@@ -74,20 +74,22 @@ def print_array(r25: float, beta: float, rf: float, min_t: float, max_t: float) 
         if t < max_t:
             if start_i is None:
                 start_i = i
-            echo(f'    {t:+.2f},  // ADC={i} index={i - start_i} R={r:.2f}')
+            echo(f'    {t:+.2f}f,  // ADC={i} index={i - start_i} R={r:.2f}')
     echo('};')
     return start_i, i
 
 
 def print_footer(start_adc: int, end_adc: int):
     echo('')
-    echo(f'constexpr int startAdc {{ {start_adc} }};')
-    echo(f'constexpr int endAdc {{ {end_adc} }};')
-    echo('')
     echo('float adc_to_temperature(int adcValue) {')
-    echo(f'    if (adcValue < {start_adc}) {{ return TABLE[0]; }}')
-    echo(f'    if (adcValue > {end_adc - 1}) {{ return TABLE[{end_adc - start_adc - 1}]; }}')
-    echo(f'    return TABLE[adcValue - {start_adc}];')
+    echo(f'    if (adcValue < {start_adc}) {{')
+    echo(f'        adcValue = 0;')
+    echo(f'    }} else if (adcValue > {end_adc - 1}) {{')
+    echo(f'        adcValue = {end_adc - start_adc - 1};')
+    echo(f'    }} else {{')
+    echo(f'        adcValue -= {start_adc};')
+    echo(f'    }}')
+    echo(f'    return pgm_read_float_near(TABLE + adcValue);')
     echo('}')
     echo('')
     echo('#endif')
