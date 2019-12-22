@@ -6,7 +6,7 @@
 #ifndef NTC_TABLE_H_
 #define NTC_TABLE_H_
 
-const static float TABLE[] PROGMEM = {
+const static float TABLE[] = {
     +40.99f,  // ADC=346 index=0 R=5110.78
     +40.88f,  // ADC=347 index=1 R=5133.14
     +40.77f,  // ADC=348 index=2 R=5155.56
@@ -467,7 +467,7 @@ float adc_to_temperature(int adcValue) {
     } else {
         adcValue -= 346;
     }
-    return pgm_read_float_near(TABLE + adcValue);
+    return TABLE[adcValue];
 }
 
 #endif

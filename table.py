@@ -57,7 +57,7 @@ def print_header():
 def print_array(r25: float, beta: float, rf: float, min_t: float, max_t: float) -> Tuple[int, int]:
     # http://www.giangrandi.ch/electronics/ntc/ntc.shtml
     start_i = None
-    echo('const static float TABLE[] PROGMEM = {')
+    echo('const static float TABLE[] = {')
     for i in range(0, 1024):
         if i == 0:
             # Zero NTC resistance.
@@ -89,7 +89,7 @@ def print_footer(start_adc: int, end_adc: int):
     echo(f'    }} else {{')
     echo(f'        adcValue -= {start_adc};')
     echo(f'    }}')
-    echo(f'    return pgm_read_float_near(TABLE + adcValue);')
+    echo(f'    return TABLE[adcValue];')
     echo('}')
     echo('')
     echo('#endif')
