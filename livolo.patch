@@ -1,0 +1,27 @@
+--- /Users/eigenein/Downloads/OneWireHub_config.h.txt   2019-12-25 13:21:32.000000000 +0100
++++ .pio/libdeps/nanoatmega328/OneWireHub_ID526/src/OneWireHub_config.h 2019-12-25 13:16:16.000000000 +0100
+@@ -24,9 +24,9 @@
+ //  was       --> shagrat-legacy
+
+ // Reset: every low-state of the master between MIN & MAX microseconds will be recognized as a Reset
+-constexpr timeOW_t ONEWIRE_TIME_RESET_TIMEOUT        = {  5000_us };        // for not hanging to long in reset-detection, lower value is better for more responsive applications, but can miss resets
++constexpr timeOW_t ONEWIRE_TIME_RESET_TIMEOUT        = {  500000_us };        // for not hanging to long in reset-detection, lower value is better for more responsive applications, but can miss resets
+ constexpr timeOW_t ONEWIRE_TIME_RESET_MIN[2]         = {   430_us, 48_us }; // should be 480
+-constexpr timeOW_t ONEWIRE_TIME_RESET_MAX[2]         = {   960_us, 80_us }; // from ds2413
++constexpr timeOW_t ONEWIRE_TIME_RESET_MAX[2]         = {   50000_us, 80_us }; // from ds2413
+
+ // Presence: slave waits TIMEOUT and emits a low state after the reset with ~MIN length, if the bus stays low after that and exceeds MAX the hub will issue an error
+ constexpr timeOW_t ONEWIRE_TIME_PRESENCE_TIMEOUT     = {    20_us };        // probe measures 25us, duration of high state between reset and presence
+@@ -34,11 +34,11 @@
+ constexpr timeOW_t ONEWIRE_TIME_PRESENCE_MAX[2]      = {   480_us, 32_us }; // should be 280, was 480
+
+
+-constexpr timeOW_t ONEWIRE_TIME_MSG_HIGH_TIMEOUT     = { 15000_us };        // there can be these inactive / high timeperiods after reset / presence, this value defines the timeout for these
++constexpr timeOW_t ONEWIRE_TIME_MSG_HIGH_TIMEOUT     = { 30000_us };        // there can be these inactive / high timeperiods after reset / presence, this value defines the timeout for these
+ constexpr timeOW_t ONEWIRE_TIME_SLOT_MAX[2]          = {   135_us, 30_us }; // should be 120, measured from falling edge to next falling edge
+
+ // read and write from the viewpoint of the slave!!!!
+-constexpr timeOW_t ONEWIRE_TIME_READ_MIN[2]          = {    20_us,  4_us }; // should be 15, was 30, says when it is safe to read a valid bit
++constexpr timeOW_t ONEWIRE_TIME_READ_MIN[2]          = {    35_us,  4_us }; // should be 15, was 30, says when it is safe to read a valid bit
+ constexpr timeOW_t ONEWIRE_TIME_READ_MAX[2]          = {    60_us, 10_us }; // low states (zeros) of a master should not exceed this time in a slot
+ constexpr timeOW_t ONEWIRE_TIME_WRITE_ZERO[2]        = {    30_us,  8_us }; // the hub holds a zero for this long
