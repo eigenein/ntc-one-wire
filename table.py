@@ -81,7 +81,7 @@ def print_array(r25: float, beta: float, rf: float, min_t: float, max_t: float) 
 
 def print_footer(start_adc: int, end_adc: int):
     echo('')
-    echo('float adc_to_temperature(int adcValue) {')
+    echo('float adcToTemperature(int adcValue) {')
     echo(f'    if (adcValue < {start_adc}) {{')
     echo(f'        adcValue = 0;')
     echo(f'    }} else if (adcValue > {end_adc - 1}) {{')
