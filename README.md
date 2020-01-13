@@ -1,5 +1,7 @@
 I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wiki/Thermistor#NTC) to a [Livolo thermostat](https://www.livolo.eu/c-4632899/livolo-thermostat/) which only works with a [DS18B20 digital thermometer](https://www.maximintegrated.com/en/products/sensors/DS18B20.html).
 
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire)
+
 ## Instructions
 
 ### `table.h`
