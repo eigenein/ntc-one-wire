@@ -13,9 +13,8 @@ constexpr unsigned long interval = 1000;
 auto hub = OneWireHub(12); // PB4/MISO
 auto ds18b20 = DS18B20(0x28, 0x92, 0x23, 0xC5, 0x1E, 0x19, 0x01); // Copied from a real sensor: 289223C51E190171.
 
-// Exponential smoothing filter weight.
-constexpr float newWeight = 0.2;
-constexpr float oldWeight = 1.0 - newWeight;
+// Exponential smoothing factor.
+constexpr float smoothingFactor = 0.2;
 
 // Error flag indicator.
 constexpr uint8_t ledPin = 13;
@@ -52,8 +51,9 @@ void loop() {
         // Schedule the next measurement.
         nextMillis = millis() + 1000;
 
-        // Apply exponential smoothing filter.
-        temperature = newWeight * readTemperature(adcPin) + oldWeight * temperature;
+        // Apply basic exponential smoothing filter.
+        // https://en.wikipedia.org/wiki/Exponential_smoothing#Basic_exponential_smoothing
+        temperature = temperature + smoothingFactor * (readTemperature(adcPin) - temperature);
         ds18b20.setTemperature(temperature);
     }
 }
