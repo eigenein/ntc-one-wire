@@ -1,3 +1,7 @@
+## `master`
+
+- Fix: `interval` variable was not used
+
 ## `0.1.1b`
 
 - Change: remove exponential smoothing because the capacitor is still needed

@@ -5,7 +5,8 @@
 
 #include "table.h"
 
-// NTC input pin.
+// NTC input pin. Another NTC wire goes to the ground.
+// This pin should be pulled up by a fixed resistor with a known resistance.
 constexpr uint8_t adcPin = A1;
 
 // Temperature measurement interval (approximate).
@@ -23,9 +24,12 @@ constexpr uint8_t ledPin = 13;
 constexpr float livoloShift = +3.0f;
 
 void setup() {
+    // I've never experienced a freeze on `hub.poll()`, but just in case enabling 8 seconds WDT.
     wdt_disable();
     wdt_enable(WDTO_8S);
 
+    // Note the baud rate if you want to run a serial monitor.
+    // I've set the maximum for Arduino Nano to reduce the time spent by `Serial.print()` in `loop()`.
     Serial.begin(2000000);
     while (!Serial);
 
@@ -60,7 +64,7 @@ void loop() {
 
     if (millis() > nextMillis) {
         // Schedule the next measurement.
-        nextMillis = millis() + 1000;
+        nextMillis = millis() + interval;
 
         const auto reading = readTemperature(adcPin);
         ds18b20.setTemperature(reading + livoloShift);
