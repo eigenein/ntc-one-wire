@@ -2,7 +2,7 @@ I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wi
 
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire?logo=github)](https://github.com/eigenein/ntc-one-wire/releases)
 [![Arduino Nano](https://img.shields.io/badge/Arduino-Nano-green?logo=arduino)](https://www.arduino.cc/en/Guide/ArduinoNano)
-[![Built with PlatformIO](https://img.shields.io/badge/Built%20with-PlatformIO-blue)](https://platformio.org/)
+[![Built with PlatformIO](https://img.shields.io/badge/Built%20with%20♥-PlatformIO-blue)](https://platformio.org/)
 
 ## Instructions
 
