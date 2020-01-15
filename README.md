@@ -11,7 +11,10 @@ You need to generate the `table.h` for your particular NTC thermistor. It contai
 Measure your NTC resistance at two different temperature points. Then call `table.py` specifying your measurements:
 
 ```sh
-python table.py --t1 <temperature-1> --r1 <resistance-at-t1> --t2 <temperature-2> --r2 <resistance-at-t2> --rf <fixed-resistor>
+python table.py \
+    --t1 <temperature-1> --r1 <resistance-at-t1> \
+    --t2 <temperature-2> --r2 <resistance-at-t2> \
+    --rf <fixed-resistor>
 ```
 
 I recommend to measure your fixed resistor actual resistance to improve accuracy.
