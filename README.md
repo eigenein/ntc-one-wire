@@ -1,6 +1,8 @@
 I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wiki/Thermistor#NTC) to a [Livolo thermostat](https://www.livolo.eu/c-4632899/livolo-thermostat/) which only works with a [DS18B20 digital thermometer](https://www.maximintegrated.com/en/products/sensors/DS18B20.html).
 
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire?logo=github)](https://github.com/eigenein/ntc-one-wire/releases)
+[![Arduino Nano](https://img.shields.io/badge/Arduino-Nano-green?logo=arduino)](https://www.arduino.cc/en/Guide/ArduinoNano)
+[![Built with PlatformIO](https://img.shields.io/badge/Built%20with-PlatformIO-blue)](https://platformio.org/)
 
 ## Instructions
 
