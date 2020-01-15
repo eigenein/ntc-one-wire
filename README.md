@@ -22,13 +22,13 @@ See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/n
 
 ### Note for Livolo thermostats
 
-Damn them!
+Damn them! 😡
 
 1. Supposingly, one has to solder out the second sensor deep inside the thermostat **even before turning it on for the first time**. If you've already done that, you may try to figure out the calibrated temperature shift that the thermostat has calculated and remembered. Wait ~4 minutes and note the difference between displayed and real temperatures. Then, change `livoloShift` in the source code to compensate this.
 2. Livolo's 1-Wire master has non-standard timings and does not read all the data transmitted. You'll need to patch OneWireHub's `OneWireHub_config.h` and `DS18B20.cpp` using the included `livolo.patch`. See also https://github.com/orgua/OneWireHub/issues/84.
 
 ### Connections
 
-- Connect your NTC to GND and the ADC pin.
+- NTC goes to GND and the ADC pin.
 - Connect Vcc and the ADC pin using a fixed resistor.
-- If possible, I also recommend connecting a capacitor in parallel with the NTC. This will reduce random measurement glitches. 100nF worked for me.
+- Put a capacitor in parallel with the NTC. This will reduce random measurement glitches. 100nF worked for me. If you won't, you'll probably sometimes get inadequate measurements due to noise on the wires.
