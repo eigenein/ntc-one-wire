@@ -1,26 +1,33 @@
 #include <Arduino.h>
+#include <avr/wdt.h>
+
 #include <DS18B20.h>
 
 #include "table.h"
 
-// NTC input.
+// NTC input pin.
 constexpr uint8_t adcPin = A1;
 
 // Temperature measurement interval (approximate).
 constexpr unsigned long interval = 1000;
 
 // 1-Wire I/O.
-auto hub = OneWireHub(12); // PB4/MISO
+auto hub = OneWireHub(12); // PB4 aka MISO
 auto ds18b20 = DS18B20(0x28, 0x92, 0x23, 0xC5, 0x1E, 0x19, 0x01); // Copied from a real sensor: 289223C51E190171.
 
-// Exponential smoothing factor.
-constexpr float smoothingFactor = 0.2;
-
-// Error flag indicator.
+// Error LED pin.
 constexpr uint8_t ledPin = 13;
 
+// Livolo thermostat performs some calibration.
+// This is the temperature shift we apply to match the actual temperature.
+constexpr float livoloShift = +3.0f;
+
 void setup() {
-    // TODO: setup WDT.
+    wdt_disable();
+    wdt_enable(WDTO_8S);
+
+    Serial.begin(2000000);
+    while (!Serial);
 
     pinMode(adcPin, INPUT);
 
@@ -38,22 +45,30 @@ float readTemperature(const uint8_t pin) {
 
 void loop() {
     static uint32_t nextMillis = millis();
-    static float temperature = readTemperature(adcPin);
 
-    // TODO: reset WDT before polling the hub.
+    wdt_reset();
     hub.poll();
 
     // Display the error flag. Timeouts are okay.
     const auto error = (uint8_t)hub.getError();
-    digitalWrite(13, ((error != 0) && (error != 3)) ? HIGH : LOW);
+    const auto isError = (error != 0) && (error != 3);
+    digitalWrite(13, isError ? HIGH : LOW);
+    if (isError) {
+        Serial.print("E: ");
+        Serial.println(error);
+    }
 
     if (millis() > nextMillis) {
         // Schedule the next measurement.
         nextMillis = millis() + 1000;
 
-        // Apply basic exponential smoothing filter.
-        // https://en.wikipedia.org/wiki/Exponential_smoothing#Basic_exponential_smoothing
-        temperature = temperature + smoothingFactor * (readTemperature(adcPin) - temperature);
-        ds18b20.setTemperature(temperature);
+        const auto reading = readTemperature(adcPin);
+        ds18b20.setTemperature(reading + livoloShift);
+
+        Serial.print(millis());
+        Serial.print(" ms | ");
+        Serial.print(reading);
+        Serial.println(" °C");
+        Serial.flush();
     }
 }

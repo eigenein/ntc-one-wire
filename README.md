@@ -11,10 +11,7 @@ You need to generate the `table.h` for your particular NTC thermistor. It contai
 Measure your NTC resistance at two different temperature points. Then call `table.py` specifying your measurements:
 
 ```sh
-python table.py \
-    --t1 <temperature-1> --r1 <resistance-at-t1> \
-    --t2 <temperature-2> --r2 <resistance-at-t2> \
-    --rf <fixed-resistor>
+python table.py --t1 <temperature-1> --r1 <resistance-at-t1> --t2 <temperature-2> --r2 <resistance-at-t2> --rf <fixed-resistor>
 ```
 
 I recommend to measure your fixed resistor actual resistance to improve accuracy.
@@ -25,13 +22,10 @@ See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/n
 
 ### Note for Livolo thermostats
 
-Livolo's 1-Wire master has non-standard timings and does not read all the data transmitted. You'll need to patch OneWireHub's `OneWireHub_config.h` and `DS18B20.cpp` using the included `livolo.patch`.
+Damn them!
 
-See also https://github.com/orgua/OneWireHub/issues/84.
-
-### Smoothing filter
-
-The code implementes the simplest [exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) of converted temperature. You may want to adjust `smoothingFactor` according to your needs.
+1. Supposingly, one has to solder out the second sensor deep inside the thermostat **even before turning it on for the first time**. If you've already done that, you may try to figure out the calibrated temperature shift that the thermostat has calculated and remembered. Wait ~4 minutes and note the difference between displayed and real temperatures. Then, change `livoloShift` in the source code to compensate this.
+2. Livolo's 1-Wire master has non-standard timings and does not read all the data transmitted. You'll need to patch OneWireHub's `OneWireHub_config.h` and `DS18B20.cpp` using the included `livolo.patch`. See also https://github.com/orgua/OneWireHub/issues/84.
 
 ### Connections
 
