@@ -32,7 +32,7 @@ See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/n
 
 ![Schematic](schematic.png)
 
-### Note for Livolo thermostats
+### Note for [Livolo thermostats](https://www.livolo.eu/c-4632899/livolo-thermostat/)
 
 In short, damn them! 😡
 
