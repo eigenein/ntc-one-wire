@@ -37,4 +37,4 @@ Notes:
 Damn them! 😡
 
 1. Supposingly, one has to solder out the second sensor deep inside the thermostat **even before turning it on for the first time**. If you've already done that, you may try to figure out the calibrated temperature offset that the thermostat has calculated and remembered. Wait ~4 minutes and note the difference between displayed and real ambient temperatures. Then, change `livoloOffset` in the source code to compensate this.
-2. Livolo's 1-Wire master has non-standard timings and does not read all the data transmitted. You'll need to patch OneWireHub's `OneWireHub_config.h` and `DS18B20.cpp` using the included `livolo.patch`. See also https://github.com/orgua/OneWireHub/issues/84.
+2. Livolo's 1-Wire master has non-standard timings and does not read all the data transmitted. You'll need to patch [OneWireHub](https://github.com/orgua/OneWireHub)'s `OneWireHub_config.h` and `DS18B20.cpp` using the included `livolo.patch`. See also https://github.com/orgua/OneWireHub/issues/84.
