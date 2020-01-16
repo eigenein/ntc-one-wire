@@ -27,6 +27,8 @@ See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/n
 
 - `R2` is a fixed resistor with a known resistance. Start with a one that is close to your typical NTC resistance. I recommend to measure actual resistance of the resistor before passing it as `--rf` to improve readings accuracy.
 - `C1` aims to filter noise on the NTC wires. It may be tempting to remove it but then you'll sometimes get inadequate readings.
+- I use `MISO` pin for 1-Wire data line because then I'm able to solder the power and data wires close to each other [on the ICSP header](https://www.arduino.cc/en/reference/SPI).
+- I used a self-fusing electrical tape to wrap the entire Arduino board and put it into a flush-mounted box behind the thermostat.
 
 ![Schematic](schematic.png)
 
