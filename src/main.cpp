@@ -20,8 +20,8 @@ auto ds18b20 = DS18B20(0x28, 0x92, 0x23, 0xC5, 0x1E, 0x19, 0x01); // Copied from
 constexpr uint8_t ledPin = 13;
 
 // Livolo thermostat performs some calibration.
-// This is the temperature shift we apply to match the actual temperature.
-constexpr float livoloShift = +3.0f;
+// This is the temperature offset we apply to match the actual temperature.
+constexpr float livoloOffset = +3.0f;
 
 void setup() {
     // I've never experienced a freeze on `hub.poll()`, but just in case enabling 8 seconds WDT.
@@ -67,7 +67,7 @@ void loop() {
         nextMillis = millis() + interval;
 
         const auto reading = readTemperature(adcPin);
-        ds18b20.setTemperature(reading + livoloShift);
+        ds18b20.setTemperature(reading + livoloOffset);
 
         Serial.print(millis());
         Serial.print(" ms | ");
