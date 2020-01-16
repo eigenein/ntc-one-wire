@@ -1,12 +1,12 @@
-I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wiki/Thermistor#NTC) to a [Livolo thermostat](https://www.livolo.eu/c-4632899/livolo-thermostat/) which only works with a [DS18B20 digital thermometer](https://www.maximintegrated.com/en/products/sensors/DS18B20.html).
+I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wiki/Thermistor#NTC) to a [Livolo thermostat](https://www.livolo.eu/c-4632899/livolo-thermostat/) which only works with a built-in [DS18B20 digital thermometer](https://www.maximintegrated.com/en/products/sensors/DS18B20.html).
 
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire?logo=github)](https://github.com/eigenein/ntc-one-wire/releases)
-[![Arduino Nano](https://img.shields.io/badge/Arduino-Nano-green?logo=arduino)](https://www.arduino.cc/en/Guide/ArduinoNano)
+[![Latest GitHub tag](https://img.shields.io/github/v/tag/eigenein/ntc-one-wire?logo=github)](https://github.com/eigenein/ntc-one-wire/releases)
+[![Built with Arduino Nano](https://img.shields.io/badge/Arduino-Nano-green?logo=arduino)](https://www.arduino.cc/en/Guide/ArduinoNano)
 [![Built with PlatformIO](https://img.shields.io/badge/Built%20with%20♥-PlatformIO-blue)](https://platformio.org/)
 
 ## Instructions
 
-### `table.h`
+### [`table.h`](src/table.h)
 
 You need to generate the [`table.h`](src/table.h) for your particular NTC thermistor. It contains an array which maps a measured ADC value to actual temperature. You can do this via the provided [`table.py`](table.py) script.
 
@@ -25,10 +25,8 @@ See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/n
 
 ### Schematic
 
-Notes:
-
-- R2 is a fixed resistor with a known resistance. Start with a one that is close to your typical NTC resistance. I recommend to measure actual resistance of the resistor before passing it as `--rf` to improve readings accuracy.
-- C1 aims to filter noise on the NTC wires. It may be tempting to remove it but then you'll sometimes get inadequate readings.
+- `R2` is a fixed resistor with a known resistance. Start with a one that is close to your typical NTC resistance. I recommend to measure actual resistance of the resistor before passing it as `--rf` to improve readings accuracy.
+- `C1` aims to filter noise on the NTC wires. It may be tempting to remove it but then you'll sometimes get inadequate readings.
 
 ![Schematic](schematic.png)
 
