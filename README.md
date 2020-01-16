@@ -25,11 +25,9 @@ If your program memory is too small, you can specify `--min-t` and/or `--max-t` 
 
 See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/ntc/ntc.shtml) for more information on how the conversion is implemented.
 
-### Connections
+### Schematic
 
-- NTC goes to GND and the ADC pin.
-- Connect Vcc and the ADC pin using a fixed resistor.
-- Put a capacitor in parallel with the NTC. This will reduce random measurement glitches. 100nF worked for me. If you won't, you'll probably sometimes get inadequate measurements due to noise on the wires.
+![Schematic](schematic.png)
 
 ### Note for Livolo thermostats
 
