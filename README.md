@@ -8,7 +8,7 @@ I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wi
 
 ### `table.h`
 
-You need to generate the `table.h` for your particular NTC thermistor. It contains an array which maps a measured ADC value to actual temperature. You can do this via the provided `table.py` script.
+You need to generate the [`table.h`](src/table.h) for your particular NTC thermistor. It contains an array which maps a measured ADC value to actual temperature. You can do this via the provided `table.py` script.
 
 Measure your NTC resistance at two different temperature points. Then call `table.py` specifying your measurements:
 
@@ -19,13 +19,16 @@ python table.py \
     --rf <fixed-resistor>
 ```
 
-I recommend to measure your fixed resistor actual resistance to improve accuracy.
-
 If your program memory is too small, you can specify `--min-t` and/or `--max-t` parameters. Then the table will be generated in a specified temperature range generating less array entries thus taking less memory.
 
 See [Measuring the temperature with NTCs](http://www.giangrandi.ch/electronics/ntc/ntc.shtml) for more information on how the conversion is implemented.
 
 ### Schematic
+
+Notes:
+
+- R2 is a fixed resistor with a known resistance. Start with a one that is close to your typical NTC resistance. I recommend to measure actual resistance of the resistor before passing it as `--rf` to improve readings accuracy.
+- C1 aims to filter noise on the NTC wires. It may be tempting to remove it but then you'll sometimes get inadequate readings.
 
 ![Schematic](schematic.png)
 
