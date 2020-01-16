@@ -8,9 +8,9 @@ I've made this device to connect my [NTC thermistor](https://en.wikipedia.org/wi
 
 ### `table.h`
 
-You need to generate the [`table.h`](src/table.h) for your particular NTC thermistor. It contains an array which maps a measured ADC value to actual temperature. You can do this via the provided `table.py` script.
+You need to generate the [`table.h`](src/table.h) for your particular NTC thermistor. It contains an array which maps a measured ADC value to actual temperature. You can do this via the provided [`table.py`](table.py) script.
 
-Measure your NTC resistance at two different temperature points. Then call `table.py` specifying your measurements:
+Measure your NTC resistance at two different temperature points. Then call [`table.py`](table.py) specifying your measurements:
 
 ```sh
 python table.py \
